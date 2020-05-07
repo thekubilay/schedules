@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box
+}
+html, body {
+    font-family: 'Noto Sans JP', sans-serif;
+    color: #2f3542;
+    background-color: #F2F2F2;
+}
+html, body a {
+    color: #2f3542;
+    text-decoration: none;
+}
+
+/* globals */
+.row {
+    width: 1024px;
+}
+.flex {
+    display: flex;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+}
+.between {
+    justify-content: space-between;
+}
+.align-ver {
+    align-items: center;
+}
+.align-hor {
+    justify-content: center;
+}
+.pointer {
+    cursor: pointer;
+}
+.grab {
+    cursor: grabbing;
+}
+
+.popup-bg {
+	z-index: 10;
+}
+.popup-bg, .new-schedule-form, .new-memo-form, .new-member-form {
+	position: fixed;
+}
+
+h1.board-title {
+    position: relative;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 50px;
+}
+h1.board-title:after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25px;
+    height: 1px;
+    background-color: #2f3542;
+}
+
+
+
+
