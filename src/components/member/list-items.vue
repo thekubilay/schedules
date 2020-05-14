@@ -53,7 +53,7 @@ export default {
             this.$store.dispatch("edit_user_name", {"user":this.name, "id":this.user.id})
             this.edit = false;             
             setTimeout(() => {
-                this.$store.dispatch("load_schedules", {date:this.get_selected_date})
+                this.$store.dispatch("load_schedule", {date:this.get_selected_date})
             }, 200);
         },
         delete_user(){
@@ -62,10 +62,10 @@ export default {
                     "id":this.user.id,
                 })
             } else {
-                this.$store.dispatch("del_empty_row", {id:this.user.id})
+                this.$store.dispatch("del_blank_row", {id:this.user.id})
             }
             setTimeout(() => {
-                this.$store.dispatch("load_schedules", {date:this.get_selected_date})
+                this.$store.dispatch("load_schedule", {date:this.get_selected_date})
             }, 200);
         },
     },
@@ -135,22 +135,4 @@ td.member-item button.delete-btn {
 td.member-item button.delete-btn .far, .fas {
     font-size: 14px !important;
 }
-td.member-item button:hover {
-    transform: translateY(-2px);
-}
-
-
-
-/* fade transition */
-.fade-enter-active {
-  transition: all .1s ease;
-}
-.fade-leave-active {
-  transition: all .1s;
-}
-.fade-enter, .slide-fade-leave-to {
-  transition: opacity .5s;
-  opacity: 0;
-}
-    
 </style>

@@ -1,29 +1,20 @@
 <template>
-    <footer>
-        <ul class="flex between footer-inner">
-            <router-link class="seps" :to="{name:'seperate_settings'}">
-                <li class="footer-item">個別表示設定</li>
-            </router-link>
-            <router-link :to="{name:'panel'}">
-                <li class="footer-item">Admin Panel</li>
-            </router-link>
-        </ul>
-    </footer>
+    <footer class="flex align-ver align-hor">
+        <ul class="flex footer-nav">
+            <router-link class="nav-item" :to="{name:'settings'}"><li>個別表示設定</li></router-link>
+            <router-link class="nav-item" :to="{name:'panel'}">Admin Panel</router-link>
+        </ul>        
+    </footer>    
 </template>
 <style>
 footer {
+    margin-top: 50px !important;
+    height: 100px;
     background-color: #f1f2f6;
-    margin: auto;
-    width: 100%;
-    border-top: 2px solid #e9e6e6 !important;
+    border-top: 2px solid #e9e6e6!important;
 }
-footer ul.footer-inner {
-    width: 300px;
-    margin: auto;
-    padding-top: 30px;
-    padding-bottom: 50px;
-} 
-footer ul.footer-inner a li.footer-item {
-    font-weight: 500;
-} 
+footer ul.footer-nav a.nav-item  {
+    display: block;
+    margin: 0 15px;
+}
 </style>

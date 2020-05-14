@@ -1,109 +1,148 @@
-import axios from "axios";
-import databaseApi from "../api/schedule.api"
+
+import scheduleApi from "../api/schedule.api"
+import settingApi from "../api/setting.api"
+import memoApi from "../api/memo.api"
 export const schedule = {
     state: {
-        schedules: [],
-        yesterday_schedules: [],
-        schedules_loaded: 0,
-        new_schedule_form: false,
-        schedule_user_id: "",
-        selected_date: "",
-        empty_row: [],
-        all_rows: [],
+        schedules:[],
+        schedule_load: 0,
+        settings: [],
+        setting_load: 0,
+        selected_date:"",
+        memo:[],
+        memo_load: 0,
+        add_schedule: false,
+        add_memo: false,
+        schedule_user_id: "",            
+        
+
+
     },
     mutations: {
-        set_schedules(state, schedules) {
-            state.schedules = schedules
+        set_schedules(state, schedule){
+            state.schedules = schedule
         },
-        set_yesterday_schedules(state, yes){
-            state.yesterday_schedules = yes
+        set_schedule_load(state, load){
+            state.schedule_load = load
         },
-        set_schedules_loaded(state, load){
-            state.schedules_loaded = load
+        set_settings(state, setting){
+            state.settings = setting
         },
-        set_new_schedule_form(state, schedule) {
-            state.new_schedule_form = schedule
+        set_setting_load(state, load){
+            state.setting_load = load
         },
-        set_schedule_user_id(state, id) {
+        set_selected_date(state, date){
+            state.selected_date = date  
+        },
+        set_memo(state, memo){
+            state.memo = memo
+        },
+        set_memo_load(state, load){
+            state.memo_load = load
+        },
+        set_add_schedule(state, add){
+            state.add_schedule = add
+        },
+        set_add_memo(state, add){
+            state.add_memo = add  
+        },
+        set_schedule_user_id(state, id){
             state.schedule_user_id = id
         },
-        set_selected_date(state, date) {
-            state.selected_date = date
-        },
-        set_empty_row(state, row) {
-            state.empty_row = row
-        },
+
     },
-    getters: {
-        get_schedules(state) {
-            return state.schedules
+    getters:{
+        get_schedules(state){
+            return state.schedules;
         },
-        get_yesterday_schedules(state){
-            return state.yesterday_schedules
+        get_schedule_load(state){
+            return state.schedule_load;
         },
-        get_schedules_loaded(state){
-            return state.schedules_loaded
+        get_settings(state){
+            return state.settings;
         },
-        get_new_schedule_form(state) {
-            return state.new_schedule_form
+        get_setting_load(state){
+            return state.setting_load;
         },
-        get_schedule_user_id(state) {
-            return state.schedule_user_id
-        },
-        get_selected_date(state) {
+        get_selected_date(state){
             return state.selected_date
         },
-        get_empty_row(state) {
-            return state.empty_row
+        get_memo(state){
+            return state.memo 
         },
+        get_memo_load(state){
+            return state.memo_load
+        },
+        get_add_schedule(state){
+            return state.add_schedule
+        },
+        get_add_memo(state){
+            return state.add_memo
+        },
+        get_schedule_user_id(state){
+            return state.schedule_user_id
+        },
+
     },
     actions: {
-        load_schedules({commit}, payload) {
-            this.commit("set_schedules_loaded", 1)
-            databaseApi.get_schedules_from_db(payload)
-                .then(response => {
-                    response.data.forEach(order => {
-                        order.order_id = parseInt(order.order_id)
-                    })
-                    let ordered = response.data.sort(function(a, b) {
-                        return a.order_id - b.order_id;
-                    });
-                    this.commit("set_schedules", ordered)
-                    this.commit("set_schedules_loaded", 2)
+        /* 
+        * blank rows
+        */         
+        load_schedule({commit}, payload){
+            this.commit("set_schedule_load", 1)
+            scheduleApi.get_schedules_from_db(payload)
+            .then(response => {
+                response.data.forEach(order => {
+                    order.order_id = parseInt(order.order_id)
                 })
+                let ordered = response.data.sort(function(a, b) {
+                    return a.order_id - b.order_id;
+                });
+                this.commit("set_schedules", ordered)
+                this.commit("set_schedule_load", 2)
+            })
+            .catch(err => {
+                console.log(err)
+                this.commit("set_schedule_load", 3)
+            })
         },
-        load_yesterday_schedules({commit}, payload) {
-            databaseApi.get_yesterday_schedules_from_db(payload)
-                .then(response => {
-                    response.data.forEach(order => {
-                        order.order_id = parseInt(order.order_id)
-                    })
-                    let ordered = response.data.sort(function(a, b) {
-                        return a.order_id - b.order_id;
-                    });
-                    this.commit("set_yesterday_schedules", ordered)
-                })
+        load_setting(){
+            this.commit("set_setting_load", 1)
+            settingApi.get_settings_from_db()
+            .then(response => {
+                this.commit("set_settings", response.data)
+                this.commit("set_setting_load", 2)
+            })
+            .catch(err => {
+                console.log(err)
+                this.commit("set_setting_load", 3)
+            })
         },
-        insert_schedule({commit}, payload) {
-            this.commit("set_schedules_loaded", 1)
-            databaseApi.insert_schedule_into_db(payload)
-                .then(response => {
-                    this.commit("set_schedules", response.data)
-                    this.commit("set_schedules_loaded", 2)
-                })
+        load_memo({commit}, payload){
+            this.commit("set_memo_load", 1)
+            memoApi.get_memo_from_db(payload)
+            .then(response => {
+                this.commit("set_memo", response.data)
+                this.commit("set_memo_load", 2)
+            })
+            .catch(err => {
+                console.log(err)
+                this.commit("set_memo_load", 3)
+            })
         },
-        add_empty_row({commit, dispatch}, payload) {
-            databaseApi.add_new_empty_cell(payload)
-            .then(res => {
-                dispatch("load_schedules")             
-            }) 
+        insert_memo({commit}, payload){
+            memoApi.insert_memos_into_db(payload)
+            .then(response => {
+				this.commit("set_memo", response.data)
+            })			
         },
-        del_empty_row({commit}, payload) {
-            databaseApi.remove_empty_row(payload)            
+        insert_schedule({commit, dispatch}, payload) {
+            scheduleApi.insert_schedule_into_db(payload)
+            .then(response => {
+                this.commit("set_schedules", response.data)
+                dispatch("load_schedule")
+            })
         },
-        empty_row_order_id({commit,dispatch}, payload){
-            databaseApi.edit_empty_row_order_id(payload)	
-            dispatch("load_schedules")             
-        },
+
     }
 }

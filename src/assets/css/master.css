@@ -11,6 +11,12 @@ html, body a {
     text-decoration: none;
 }
 
+button.btn {
+    background-color: #2f3542;
+    font-size: 14px;
+    color: white;
+}
+
 /* globals */
 .row {
     width: 1024px;
@@ -37,32 +43,6 @@ html, body a {
 .grab {
     cursor: grabbing;
 }
-
-.popup-bg {
-	z-index: 10;
-}
-.popup-bg, .new-schedule-form, .new-memo-form, .new-member-form {
-	position: fixed;
-}
-
-h1.board-title {
+.rel {
     position: relative;
-    text-align: center;
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 50px;
 }
-h1.board-title:after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 25px;
-    height: 1px;
-    background-color: #2f3542;
-}
-
-
-
-

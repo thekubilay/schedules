@@ -1,314 +1,228 @@
 <template>
-    <div class="settings">
-        <h1 class="board-title" v-if="sets.length">{{settings}}</h1>
-        <!-- inner -->
-        <table class="settings-table">
+    <div id="settings">
+        <h3 class="setting-table-title">{{settings}}</h3>
+        <table class="setting-table">
             <thead>
                 <tr>
-                    <th class="settings-item">#</th>
-                    <th class="settings-item">項 目</th>
-                    <th class="settings-item">設定値</th>
-                    <th class="settings-item">備考</th>
+                    <th class="sett-item">
+                        #num
+                    </th>
+                    <th class="sett-item">項目</th>
+                    <th class="sett-item">設定値</th>
+                    <th class="sett-item">備考</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td class="settings-item">1</td>
-                    <td class="settings-item">"行先" 文字制限</td>
-                    <td class="settings-item"><input v-model="content_field" class="setting-input" type="text"></td>
-                    <td class="settings-item">10～40（文字）で設定</td>
+                    <td class="sett-item">1</td>
+                    <td class="sett-item">自動更新時間 :</td>
+                    <td class="sett-item"><input v-model="update_time" class="setting-input" type="text"></td>
+                    <td class="sett-item">1～25（分）で設定</td>
+                </tr>
+                 <tr>
+                    <td class="sett-item">2</td>
+                    <td class="sett-item">"行先" 文字制限 :</td>
+                    <td class="sett-item"><input v-model="content_field" class="setting-input" type="text"></td>
+                    <td class="sett-item">10～40（文字）で設定</td>
                 </tr>
                 <tr>
-                    <td class="settings-item">2</td>
-                    <td class="settings-item">"備考" 文字制限：	</td>
-                    <td class="settings-item"><input v-model="remarks_field" class="setting-input" type="text"></td>
-                    <td class="settings-item">10～40（文字）で設定</td>
+                    <td class="sett-item">3</td>
+                    <td class="sett-item">"備考" 文字制限 :</td>
+                    <td class="sett-item"><input v-model="remarks_field" class="setting-input" type="text"></td>
+                    <td class="sett-item">10～40（文字）で設定</td>
                 </tr>
                 <tr>
-                    <td class="settings-item">3</td>
-                    <td class="settings-item">"備考" "名前" 文字制限</td>
-                    <td class="settings-item"><input v-model="name_field" class="setting-input" type="text"></td>
-                    <td class="settings-item">2～10（文字）で設定</td>
+                    <td class="sett-item">4</td>
+                    <td class="sett-item">"備考" "名前" 文字制限 :</td>
+                    <td class="sett-item"><input v-model="name_field" class="setting-input" type="text"></td>
+                    <td class="sett-item">2～10（文字）で設定</td>
                 </tr>
                 <tr>
-                    <td class="settings-item">4</td>
-                    <td class="settings-item">フォントサイズ</td>
-                    <td class="settings-item"><input v-model="font_size" class="setting-input" type="text"></td>
-                    <td class="settings-item">適切サイズは12～22（pt）</td>
+                    <td class="sett-item">5</td>
+                    <td class="sett-item">線色 :</td>
+                    <td class="sett-item"><input v-model="color_line" class="setting-input" type="text"></td>
+                    <td class="sett-item">16進数カラーコード</td>
                 </tr>
                 <tr>
-                    <td class="settings-item">5</td>
-                    <td class="settings-item">線色</td>
-                    <td class="settings-item"><input v-model="color_line" class="setting-input" type="text"></td>
-                    <td class="settings-item">16進数カラーコード</td>
+                    <td class="sett-item">6</td>
+                    <td class="sett-item">メモ連絡 :</td>
+                    <td class="sett-item"><input v-model="memo_field" type="checkbox" class="setting-input"></td>
+                    <td class="sett-item">連絡メモ欄の表示</td>
                 </tr>
                 <tr>
-                    <td class="settings-item">6</td>
-                    <td class="settings-item">メモ連絡</td>
-                    <td class="settings-item">                    
-                        <input type="checkbox" v-model="memo_field">
-                    </td>
-                    <td class="settings-item">連絡メモ欄の表示</td>
-                </tr>  
-                <tr>
-                    <td class="settings-item">7</td>
-                    <td class="settings-item">横並びテーブルの行数</td>
-                    <td class="settings-item"><input v-model="row_number" class="setting-input" type="text"></td>
-                    <td class="settings-item">1テーブルで適切行数5〜20</td>
-                </tr>              
-            </tbody>            
+                    <td class="sett-item">7</td>
+                    <td class="sett-item">横並びテーブルの行数 :</td>
+                    <td class="sett-item"><input v-model="row_number" class="setting-input" type="text"></td>
+                    <td class="sett-item">1テーブルで適切行数5〜20</td>
+                </tr>
+            </tbody>
         </table>
-
-        <table class="settings-table-sp">
-            <tr class="setting-tr">
-                <th class="settings-item-sp">"行先" 文字制限： <br>10～40（文字）で設定</th>
-                <td class="settings-item-sp"><input v-model="content_field" class="setting-input" type="text"></td>
-            </tr>
-            <tr>
-                <th class="settings-item-sp">"備考" 文字制限：	<br>10～40（文字）で設定</th>
-                <td class="settings-item-sp"><input v-model="remarks_field" class="setting-input" type="text"></td>
-            </tr>
-            <tr>
-                <th class="settings-item-sp">"備考" "名前" 文字制限： <br>2～10（文字）で設定</th>
-                <td class="settings-item-sp"><input v-model="name_field" class="setting-input" type="text"></td>
-            </tr>
-            <tr>
-                <th class="settings-item-sp">フォントサイズ： <br>適切サイズは12～22（pt）</th>
-                <td class="settings-item-sp"><input v-model="font_size" class="setting-input" type="text"></td>
-            </tr>
-            <tr>
-                <th class="settings-item-sp">線色： <br>16進数カラーコード</th>
-                <td class="settings-item-sp"><input v-model="color_line" class="setting-input" type="text"></td>
-            </tr>
-            <tr>
-                <th class="settings-item-sp">メモ連絡： <br>連絡メモ欄の表示</th>
-                <td class="settings-item-sp check-wrap">                    
-                    <input type="checkbox" v-model="memo_field">
-                </td>
-            </tr>   
-            <tr>
-                <th class="settings-item-sp">横並びテーブルの行数 <br>1テーブルで適切行数5〜20</th>
-                <td class="settings-item-sp">                    
-                    <input v-model="row_number" class="setting-input">
-                </td>
-            </tr>                
-        </table>
-
-
-
-        <div class="flex between settings-button-wrap">
-            <button
-                @click="return_to()"
-                shadow
-                square
-                class="settings-btn"
-            >
-                行動予定表
-            </button>
-            <button
-                @click="settings_update()"
-                shadow
-                square
-                class="settings-btn"
-            >
-                決定
-            </button>
+        <div class="flex between btn-wrap">
+            <button @click="return_to()" class="sett-btn btn">戻る</button>
+            <button @click="settings_update()" class="sett-btn btn">決定</button>
         </div>
     </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
 export default {
-	components: {
-
-    },
     data(){
         return {
-            row_number: "",
             update_time: "",
-            title: "",
             content_field: "",
             remarks_field: "",
             name_field: "",
-            font_size: "",
             color_line: "",
             memo_field: "",
-            screen_mode: "",
-            content_width: "",
-            remarks_width: "",
-            name_width: "",
-
+            row_number: "",
         }
     },
     methods: {
         settings_update(){
             let payload = {
-                "id": this.sets[0].id,
-                // "update_time": this.update_time * 60,
+                "id": this.get_settings[0].id,
+                "update_time": this.update_time,
                 "row_number": this.row_number,
-                "update_time": 180,
-                "title": this.title,
                 "content_field": this.content_field,
                 "remarks_field": this.remarks_field,
                 "name_field": this.name_field,
-                "font_size": this.font_size,
                 "color_line": this.color_line,
                 "memo_field": this.memo_field == true ? 1 : 0,
-                "screen_mode": this.screen_mode,
-                "content_width": this.content_width,
-                "remarks_width": this.remarks_width,
-                "name_width": this.name_width,
             }
             this.$store.dispatch("update_settings", payload)
         },
         return_to(){
-            this.$router.push({name: "schedule"})
+            this.$router.push({name: "home"})
         }
     },
-	computed: {
-		...mapGetters({
-            sets:"get_settings",
-        }),
+    computed: {
+        ...mapGetters([
+            "get_settings",
+            "get_setting_load",
+        ]),
         settings(){
-            if (this.sets.length) {
-                this.row_number = this.sets[0].row_number
-                this.update_time = this.sets[0].update_time / 60
-                this.title = this.sets[0].title
-                this.content_field = this.sets[0].content_field
-                this.remarks_field = this.sets[0].remarks_field
-                this.name_field = this.sets[0].name_field
-                this.font_size = this.sets[0].font_size
-                this.color_line = this.sets[0].color_line
-                this.memo_field = this.sets[0].memo_field == 1 ? true : false
-                this.screen_mode = this.sets[0].screen_mode
-                this.content_width = this.sets[0].content_width
-                this.remarks_width = this.sets[0].remarks_width
-                this.name_width = this.sets[0].name_width
+            if (this.get_settings.length) {
+                this.update_time = this.get_settings[0].update_time
+                this.content_field = this.get_settings[0].content_field
+                this.remarks_field = this.get_settings[0].remarks_field
+                this.name_field = this.get_settings[0].name_field
+                this.color_line = this.get_settings[0].color_line
+                this.memo_field = this.get_settings[0].memo_field == 1 ? true : false
+                this.row_number = this.get_settings[0].row_number
             }
 
             let title = "設定ファイルの編集/更新"
             return title
         }
-        
-	}
-
+    }
 }
 </script>
 <style>
-.settings {
-	width: 600px;
+#settings {
+
 }
-.settings h1.board-title {
-	margin-top: 100px;
-}   
-.settings table.settings-table {
-    width: 600px;    
-    margin: auto;
-}   
-.settings table.settings-table thead tr th.settings-item {
-    font-weight: 500;
-    font-size: 15px;
-    padding: 10px;
-}   
-.settings table.settings-table thead tr th.settings-item:nth-child(1) {
-    width: 25px;
+#settings h3.setting-table-title {
+    margin-top: 50px;
     text-align: center;
-    min-width: 25px;
-}   
-.settings table.settings-table thead tr th.settings-item:nth-child(2) {
-    width: 175px;
-    min-width: 175px;
-}   
-.settings table.settings-table thead tr th.settings-item:nth-child(3) {
-    width: 125px;
-    min-width: 125px;
-}  
-.settings table.settings-table thead tr th.settings-item:nth-child(4) {
-    width: 325px;
-    min-width: 325px;
-}    
-
-
-/* td */
-.settings table.settings-table tbody tr td.settings-item {
-    font-weight: 400;
-    font-size: 13px;
-    padding: 10px;
-}  
-.settings table.settings-table tbody tr td.settings-item:nth-child(1) {
-    text-align: center;
+    font-size: 22px;
     font-weight: 600;
-}  
-.settings table.settings-table tbody tr td.settings-item input.setting-input {
-    height: 30px;
-    color: whitesmoke;
-    background-color: #2f3542;
-    border: 0;
-    outline: 0;
-    border-width: 0;
-    padding-left: 10px;
-} 
-
-.settings .settings-button-wrap {
-    width: 100%;
-    margin: 25px;
-
+    margin-bottom: 50px;
 }
-.settings .settings-button-wrap .settings-btn {
-    width: 200px;
+#settings table.setting-table {
+    width: 560px;    
+    margin: 0 auto;
+    font-size: 14px;
+}
+#settings table.setting-table thead tr th.sett-item {
+    padding: 10px 0;
+    text-align: center;
+    border-bottom: 1px solid #dcdde1;
+}
+#settings table.setting-table thead tr th.sett-item:nth-child(1) {
+    width: 50px;
+    min-width: 50px;
+}
+#settings table.setting-table thead tr th.sett-item:nth-child(2) {
+    width: 160px;
+    min-width: 160px;
+}
+#settings table.setting-table thead tr th.sett-item:nth-child(3) {
+    width: 100px;
+    min-width: 100px;
+    padding-left: 15px;
+}
+
+
+/* body */
+#settings table.setting-table tbody tr td.sett-item {
+    height: 55px;
+    vertical-align: middle;
+    text-align: center;
+}
+#settings table.setting-table tbody tr td.sett-item:nth-child(1) {
+    font-weight: 500;
+}
+#settings table.setting-table tbody tr td.sett-item:nth-child(2) {
+    text-align: left;
+}
+#settings table.setting-table tbody tr td.sett-item input.setting-input {
+    height: 32px;
     background-color: #2f3542;
     color: white;
-    height: 35px;
+    width: 95%;
+    margin-left: 15px;
+    padding-left: 10px;
 }
 
-.settings table.settings-table-sp{
-    display: none;
+#settings .btn-wrap {
+    width: 400px;
+    margin: auto;
+    margin-top: 50px;
 }
-@media screen and (max-width: 730px){
-    .settings {
-        width: 90% !important;
-        margin: auto;
-    }
-    .settings table.settings-table{
-        display: none;
-    }
-    .settings table.settings-table-sp{
-        display: block;
-    }
-    
+#settings .btn-wrap button.sett-btn {
+    width: 150px;
+}
 
-    .settings table.settings-table-sp th.settings-item-sp, td.settings-item-sp {
-        width: 50%;
-        height: 60px;
-        font-size: 14px;
-        vertical-align: middle;
-    }
-    .settings table.settings-table-sp th.settings-item-sp {
-        text-align: left;
-        line-height: 1.5;
-    }
-    .settings table.settings-table-sp td.settings-item-sp {
-        text-align: right;
-    }
-    .settings table.settings-table-sp td.settings-item-sp.check-wrap {
-        text-align: center;
-    }
-    .settings table.settings-table-sp td.settings-item-sp input.setting-input {
-        background-color: #2f3542;
-        color: white;
-        width: 100px;
-        margin: auto;
-    } 
 
-    .settings .settings-button-wrap {
-        width: 90%;
-        margin: 25px;
-    }
-    .settings .settings-button-wrap .settings-btn {
-        width: 100px !important;
-        height: 35px;
+@media screen and (max-width: 600px){
+    #settings table.setting-table {
+        width: 95%;
+        margin: 0 auto;
         font-size: 12px;
     }
+    #settings table.setting-table thead tr th.sett-item:nth-child(1) {
+        width: 10%;
+        min-width: 10px;
+    }
+    #settings table.setting-table thead tr th.sett-item:nth-child(2) {
+        width: 30%;
+        min-width: 30px;
+    }
+    #settings table.setting-table thead tr th.sett-item:nth-child(3) {
+        width: 20%;
+        min-width: 50px;
+    }
+    #settings table.setting-table thead tr th.sett-item:nth-child(4) {
+        width: 30%;
+        min-width: 30px;
+    }
 
+    #settings table.setting-table tbody tr td.sett-item input.setting-input {
+        height: 32px;
+        background-color: #2f3542;
+        color: white;
+        width: 95%;
+        margin-left: 0;
+        padding-left: 10px;
+    }
+    #settings .btn-wrap {
+        width: 85%;
+        margin: auto;
+        margin-top: 50px;
+    }
+    #settings .btn-wrap button.sett-btn {
+        width: 100px;
+        font-size: 12px;
+    }
 }
 </style>

@@ -2,19 +2,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {schedule} from "./schedule";
-import {memos} from "./memos";
-import {password} from "./password";
-import {members} from "./members";
-import {settings} from "./settings";
+import {member} from "./member";
+import {setting} from "./setting";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
 	modules: {
 		schedule,
-		memos,
-		members,
-		settings,
-		password
+		member,
+		setting,
 	},	
 })
