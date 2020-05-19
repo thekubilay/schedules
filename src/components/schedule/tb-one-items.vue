@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <td class="st-item">
+        <td :style="{borderRight:'2px solid #'+get_settings[0].color_line, borderBottom:'2px solid #'+get_settings[0].color_line}" class="st-item">
             <button class="btn"
                 v-if="schedule.name != ''"
                 @click="add_schedule()"
@@ -8,26 +8,26 @@
                 {{schedule.name}}                
             </button>
         </td>
-        <td class="st-item" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
+        <td :style="{borderRight:'2px solid #'+get_settings[0].color_line, borderBottom:'2px solid #'+get_settings[0].color_line}" class="st-item" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
             <p v-if="schedule.schedules.length">{{schedule.schedules[0].content}}</p>
         </td>
-        <td class="st-item" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
+        <td :style="{borderRight:'2px solid #'+get_settings[0].color_line, borderBottom:'2px solid #'+get_settings[0].color_line}" class="st-item" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
             <p v-if="schedule.schedules.length"> 
-                {{schedule.schedules[0].holiday_work_start}} 
+                {{ schedule.schedules[0].holiday_work_start != null ? schedule.schedules[0].holiday_work_start.substring(5).replace("-", "/") : ""}} 
                 <span v-if="schedule.schedules[0].holiday_work_start != null && schedule.schedules[0].holiday_work_finish != null && schedule.schedules[0].holiday_work_start != '' && schedule.schedules[0].holiday_work_finish != ''">-</span>
-                {{schedule.schedules[0].holiday_work_finish}} 
+                {{schedule.schedules[0].holiday_work_finish != null ? schedule.schedules[0].holiday_work_finish.substring(5).replace("-", "/") : ""}} 
             </p>
         </td>
-        <td class="st-item" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
+        <td :style="{borderRight:'2px solid #'+get_settings[0].color_line, borderBottom:'2px solid #'+get_settings[0].color_line}" class="st-item" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
             <p v-if="schedule.schedules.length && schedule.schedules[0].display_returns == 1 && schedule.schedules[0].direct_returns == 0">
-                {{schedule.schedules[0].return_date}}
+                {{ schedule.schedules[0].return_date != null ? schedule.schedules[0].return_date.substring(5).replace("-", "/") : ""}}
                 <span v-if="schedule.schedules[0].return_date != null && schedule.schedules[0].return_time.length">-</span>
                 {{schedule.schedules[0].return_time.length ? schedule.schedules[0].return_time.match(/../g).join(':') : ""}}
             </p>
             <p v-if="schedule.schedules.length && schedule.schedules[0].direct_returns == 1">NR</p>
         </td>
 
-        <td class="st-item" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
+        <td :style="{borderRight:'2px solid #'+get_settings[0].color_line, borderBottom:'2px solid #'+get_settings[0].color_line}" class="st-item" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
             <p v-if="schedule.schedules.length">{{schedule.schedules[0].remarks}}</p>
         </td>
     </tr>
@@ -47,6 +47,8 @@ export default {
     computed: {
         ...mapGetters([
             "get_selected_date",
+            "get_settings",
+            "get_setting_load",
         ]),
         holiday_finish(){
             var date = new Date();
@@ -118,11 +120,21 @@ export default {
                 if (this.schedule.schedules[0].return_time != null && this.schedule.schedules[0].return_time != "") {
                     let arrange_time = this.schedule.schedules[0].return_time
                     arrange_time = parseInt(arrange_time)
-                    if (arrange_time < time && today == this.get_selected_date) {
-                        return true; 
+                    if (this.schedule.schedules[0].return_date != null) {
+                        if (arrange_time < time && this.schedule.schedules[0].return_date <= today) {
+                            return true; 
+                        } else {
+                            return false;
+                        }  
                     } else {
-                        return false;
-                    }             
+                        if (arrange_time < time) {
+                            return true; 
+                        } else {
+                            return false;
+                        }             
+
+                    }
+
                 } else {
                     return ""
                 }

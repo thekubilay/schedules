@@ -46,6 +46,7 @@ export default {
                 });
                 this.$store.dispatch("insert_new_order_id", {"orders":schedule_list})
                 this.$store.dispatch("blank_row_order_id", {"orders":empty_rows})
+                this.$store.dispatch("load_schedule", {"date":this.get_selected_date})          
             },
             get(){
                 return this.$store.state.schedule.schedules

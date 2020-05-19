@@ -9,14 +9,14 @@ export default {
         const password = "X4taLdr"
         var basicAuth = 'Basic ' + btoa(username + ':' + password);
         axios.defaults.headers.common["authorization"] = basicAuth
-        return axios.post(API_HANDLER.database_api+ "schedule/read", JSON.stringify(payload))
+        return axios.post(API_HANDLER.database_api+ "schedule/read.php", JSON.stringify(payload))
     },    
     insert_schedule_into_db(payload){
         const username = "prej"
         const password = "X4taLdr"
         var basicAuth = 'Basic ' + btoa(username + ':' + password);
         axios.defaults.headers.common["authorization"] = basicAuth
-        return axios.post(API_HANDLER.database_api+"schedule/insert", JSON.stringify(payload))
+        return axios.post(API_HANDLER.database_api+"schedule/insert.php", JSON.stringify(payload))
     },
 
 }

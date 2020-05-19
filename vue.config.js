@@ -1,3 +1,3 @@
-// module.exports = {
-// 	publicPath: '/asana-vue'
-// }
+module.exports = {
+	publicPath: '/schedules'
+}

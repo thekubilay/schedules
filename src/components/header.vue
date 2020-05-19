@@ -1,6 +1,6 @@
 <template>
     <header class="flex between rel">
-        <div class="header-left-sides h-sides">
+        <div class="flex column align-hor header-left-sides h-sides">
             <h1 class="h-title">行動予定表</h1>
             <p class="h-caution">※必ずご自身で入力をお願いします</p>
         </div>

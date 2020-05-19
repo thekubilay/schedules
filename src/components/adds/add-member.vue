@@ -5,6 +5,7 @@
             <div @click="close_add_box()" class="flex align-ver align-hor close pointer"><i class="fas fa-times"></i></div>
             <h3 class="popup-frame-title">メンバー入力フォーム</h3>
             <input v-model="member" type="text" placeholder="名前">
+            <p v-if="error == true" class="err">名前を入力してください。</p>
             <button @click="insert_member()" class="popup-btn btn pointer">メンバー登録</button>
         </div>
     </div>
@@ -14,22 +15,31 @@ import { mapGetters } from 'vuex'
 export default {
     data(){
         return {
+            error: false,
             member: "",
         }
+    },
+    mounted(){
+        this.error = false
     },
     methods: {
         close_add_box(){
             this.$store.state.member.add_member = false
+            this.error = false
         },
         insert_member(){
-            this.$store.state.member.add_member = false;
-            if (this.get_schedules.length) {
-                let len = this.get_schedules.length   
-                this.$store.dispatch("insert_user", {"user":this.member, "order_id": len+1})              
+            if (this.member != "") {
+                if (this.get_schedules.length) {
+                    this.$store.state.member.add_member = false;
+                    let len = this.get_schedules.length   
+                    console.log(len)
+                    this.$store.dispatch("insert_user", {"user":this.member, "order_id": len+1})              
+                } else {
+                    this.$store.dispatch("insert_user", {"user":this.member, "order_id": 1}) 
+                }     
             } else {
-                this.$store.dispatch("insert_user", {"user":this.member, "order_id": 1}) 
-            }  
-            
+                this.error = true
+            }
         }
     },
     computed: {
@@ -41,6 +51,14 @@ export default {
 }
 </script>
 <style>
+.err {
+    font-size: 500;
+    margin-bottom: 15px;
+    color: red;
+    text-align: center;
+    font-size: 14px;
+
+}
 .popup-bg {
     top: 0;
     left: 0;
@@ -138,6 +156,36 @@ export default {
     .popup-bg .schedule-frame .box-row .input-wrap .select-second {
         margin-right: 0;
     }
+
+    
+
+}
+
+@media screen and (max-width: 414px){
+    .popup-bg .popup-frame {
+        width: 90% !important;
+        padding: 10px;
+    }
+    .popup-bg .schedule-frame .box-row p.column-title {
+        width: 65px;
+        min-width: 65px;
+        font-size: 12px;
+    }
+    .popup-bg .schedule-frame .box-row .input-wrap .selects {
+        width: 50px;
+    }
+    .popup-bg .schedule-frame .box-row .input-wrap .vdpComponent input {
+        width: 100px;
+        font-size: 10px;
+    }
+    .popup-bg .schedule-frame .box-row .input-wrap .selects {
+        margin-right: 7px;
+    }
+    .popup-bg .schedule-frame .box-row .input-wrap .select-second {
+        margin-right: 0;
+    }
+
+
 
 }
 

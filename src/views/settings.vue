@@ -19,6 +19,12 @@
                     <td class="sett-item"><input v-model="update_time" class="setting-input" type="text"></td>
                     <td class="sett-item">1～25（分）で設定</td>
                 </tr>
+                <tr>
+                    <td class="sett-item">5</td>
+                    <td class="sett-item">線色 :</td>
+                    <td class="sett-item"><input v-model="color_line" class="setting-input" type="text"></td>
+                    <td class="sett-item">16進数カラーコード</td>
+                </tr>
                  <tr>
                     <td class="sett-item">2</td>
                     <td class="sett-item">"行先" 文字制限 :</td>
@@ -38,20 +44,14 @@
                     <td class="sett-item">2～10（文字）で設定</td>
                 </tr>
                 <tr>
-                    <td class="sett-item">5</td>
-                    <td class="sett-item">線色 :</td>
-                    <td class="sett-item"><input v-model="color_line" class="setting-input" type="text"></td>
-                    <td class="sett-item">16進数カラーコード</td>
-                </tr>
-                <tr>
                     <td class="sett-item">6</td>
-                    <td class="sett-item">メモ連絡 :</td>
+                    <td class="sett-item">行動予定表メモ連絡 :</td>
                     <td class="sett-item"><input v-model="memo_field" type="checkbox" class="setting-input"></td>
                     <td class="sett-item">連絡メモ欄の表示</td>
                 </tr>
                 <tr>
                     <td class="sett-item">7</td>
-                    <td class="sett-item">横並びテーブルの行数 :</td>
+                    <td class="sett-item">行動予定表表枠 :</td>
                     <td class="sett-item"><input v-model="row_number" class="setting-input" type="text"></td>
                     <td class="sett-item">1テーブルで適切行数5〜20</td>
                 </tr>
@@ -87,9 +87,10 @@ export default {
                 "remarks_field": this.remarks_field,
                 "name_field": this.name_field,
                 "color_line": this.color_line,
-                "memo_field": this.memo_field == true ? 1 : 0,
+                "memo_field": this.memo_field == true ? 1 : 0,   
             }
             this.$store.dispatch("update_settings", payload)
+            this.$router.push({name: "home"})
         },
         return_to(){
             this.$router.push({name: "home"})
@@ -133,9 +134,16 @@ export default {
     margin: 0 auto;
     font-size: 14px;
 }
+#home .table-wrap table.setting-table tr {
+    background-color: unset;    
+}
+#home .table-wrap table.setting-table tr {
+    background-color: unset;    
+}
 #settings table.setting-table thead tr th.sett-item {
     padding: 10px 0;
-    text-align: center;
+    text-align: left;
+    font-weight: bold;
     border-bottom: 1px solid #dcdde1;
 }
 #settings table.setting-table thead tr th.sett-item:nth-child(1) {
@@ -143,13 +151,16 @@ export default {
     min-width: 50px;
 }
 #settings table.setting-table thead tr th.sett-item:nth-child(2) {
-    width: 160px;
-    min-width: 160px;
+    width: 135px;
+    min-width: 135px;
 }
 #settings table.setting-table thead tr th.sett-item:nth-child(3) {
-    width: 100px;
-    min-width: 100px;
-    padding-left: 15px;
+    width: 75px;
+    min-width: 75px;
+}
+#settings table.setting-table thead tr th.sett-item:nth-child(4) {
+    width: 120px;
+    min-width: 120px;
 }
 
 
@@ -157,7 +168,6 @@ export default {
 #settings table.setting-table tbody tr td.sett-item {
     height: 55px;
     vertical-align: middle;
-    text-align: center;
 }
 #settings table.setting-table tbody tr td.sett-item:nth-child(1) {
     font-weight: 500;
@@ -169,8 +179,7 @@ export default {
     height: 32px;
     background-color: #2f3542;
     color: white;
-    width: 95%;
-    margin-left: 15px;
+    width: 90%;
     padding-left: 10px;
 }
 

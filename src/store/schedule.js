@@ -98,6 +98,10 @@ export const schedule = {
                 let ordered = response.data.sort(function(a, b) {
                     return a.order_id - b.order_id;
                 });
+                ordered.forEach((element, index) => {
+                    element.order_id = index
+                });
+                console.log(ordered.length)
                 this.commit("set_schedules", ordered)
                 this.commit("set_schedule_load", 2)
             })
@@ -136,11 +140,11 @@ export const schedule = {
 				this.commit("set_memo", response.data)
             })			
         },
-        insert_schedule({commit, dispatch}, payload) {
+        insert_schedule({commit, dispatch, getters}, payload) {
             scheduleApi.insert_schedule_into_db(payload)
             .then(response => {
                 this.commit("set_schedules", response.data)
-                dispatch("load_schedule")
+                dispatch("load_schedule", {"date":getters.get_selected_date})
             })
         },
 

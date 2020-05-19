@@ -5,7 +5,7 @@
             <div @click="close_add_box()" class="flex align-ver align-hor close pointer"><i class="fas fa-times"></i></div>
             <h3 class="popup-frame-title">メモ入力フォーム</h3>
             <textarea rows="4" cols="50" v-model="memo"></textarea>
-            <button @click="insert_memo()" class="popup-btn btn pointer">メンバー登録</button>
+            <button @click="insert_memo()" class="popup-btn btn pointer">メモ登録</button>
             {{empty_txt}}
         </div>
     </div>

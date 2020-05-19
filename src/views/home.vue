@@ -64,19 +64,17 @@ export default {
 #home {
     margin: 50px auto 0;
 }
+#home .table-wrap {
+    margin: 0 25px;
+}
 #home .table-wrap table.schedule-table {
-    margin-left: 25px;
-    margin-right: 25px;
-    width: 50%;
+    width: 48%;
     font-size: 14px;
-    border: 2px solid #00008b;
 }
 
 /* table header */
 #home .table-wrap table.schedule-table thead tr {
-    background-color: white;
-    border-bottom: 2px solid #00008b;
-    
+    background-color: white;    
 }
 #home .table-wrap table.schedule-table thead tr th.st-item {
     text-align: center;
@@ -84,7 +82,6 @@ export default {
     vertical-align: middle;
     padding: 15px 0;
     color: #00008b;    
-    border-right: 2px solid #00008b;
 }
 #home .table-wrap table.schedule-table thead tr th.st-item:nth-child(1) {
     text-align: center;
@@ -104,19 +101,20 @@ export default {
 }
 
 /* table body */
+#home .table-wrap table.schedule-table tr:nth-child(2n) {
+    background-color: #fff;
+}
 #home .table-wrap table.schedule-table tbody tr {
     text-align: left;
     font-weight: 400;
     vertical-align: middle;
-    border-bottom: 2px solid #00008b;
 }
 #home .table-wrap table.schedule-table tbody tr td.st-item {
     text-align: left;
     font-weight: 400;
-    padding-left: 10px;
+    padding: 5px;
     height: 45px;
     vertical-align: middle;
-    border-right: 2px solid #00008b;
 }
 
 #home .table-wrap table.schedule-table tbody tr td.st-item:nth-child(1) {
@@ -133,27 +131,28 @@ export default {
     text-align: left;
     margin: auto;
 }
+#home .table-wrap table.schedule-table tbody tr td.st-item:nth-child(2) p {
+    word-break: break-all;
+}
 #home .table-wrap table.schedule-table tbody tr td.st-item:nth-child(3), 
 #home .table-wrap table.schedule-table tbody tr td.st-item:nth-child(4) {
     text-align: center;   
     padding: 0;
 }
+#home .table-wrap table.schedule-table tbody tr td.st-item:nth-child(5) p {
+    word-break: break-all;
+}
 
 
 @media screen and (max-width: 1100px){
-    #home .table-wrap table.table-one {
+    #home .table-wrap {
         margin-left: 15px;
-        margin-right: 5px;
-    }
-    #home .table-wrap table.table-two {
-        margin-left: 7px;
         margin-right: 15px;
     }
 }
 
 @media screen and (max-width: 1000px){
     #home .table-wrap table.schedule-table {
-        width: 50%;
         font-size: 12px;
         border: 2px solid #00008b;
     }

@@ -5,6 +5,7 @@
             <p v-if="user.name != ''" class="flex align-ver align-hor name-btn">{{user.name}}</p>
             <p v-else class="flex align-ver align-hor">{{user.name}}</p>
             <input v-if="get_settings.length" v-model="name" :maxlength="get_settings[0].name_field" v-show="edit" type="text" ref="input">
+            <p v-if="error == true" class="input-err">お名前を入力してください。</p>            
         </td>
         <td class="member-item">
             <button
@@ -43,6 +44,7 @@ export default {
         return {
             edit: false,
             name: "",
+            error: false,
         }
     },
     methods: {
@@ -50,11 +52,15 @@ export default {
             this.edit = true;
         },
         apply_user(){
-            this.$store.dispatch("edit_user_name", {"user":this.name, "id":this.user.id})
-            this.edit = false;             
-            setTimeout(() => {
-                this.$store.dispatch("load_schedule", {date:this.get_selected_date})
-            }, 200);
+            if (this.name != "") {
+                this.$store.dispatch("edit_user_name", {"user":this.name, "id":this.user.id})
+                this.edit = false;             
+            } else {
+                this.error = true
+                setTimeout(() => {
+                    this.error = false
+                }, 1500);
+            }
         },
         delete_user(){
             if (this.user.name != '') {
@@ -64,9 +70,6 @@ export default {
             } else {
                 this.$store.dispatch("del_blank_row", {id:this.user.id})
             }
-            setTimeout(() => {
-                this.$store.dispatch("load_schedule", {date:this.get_selected_date})
-            }, 200);
         },
     },
     computed: {
@@ -78,6 +81,17 @@ export default {
 }
 </script>
 <style>
+.input-err {
+    position: absolute;
+    left: 20px;
+    top: 13px;
+    z-index: 99;
+    font-size: 500;
+    margin-bottom: 15px;
+    color: red;
+    text-align: center;
+    font-size: 14px;
+}
 tr.grab:nth-child(even) {background-color: white;}
 
 td.member-item {
