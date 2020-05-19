@@ -1,4 +1,5 @@
 import memberApi from "../api/members.api";
+import { schedule } from "./schedule";
 export const member = {
     state: {
         add_member: false,
@@ -57,13 +58,17 @@ export const member = {
             })		
         },
         delete_user({commit,dispatch, getters, state}, payload){
-            memberApi.delete_user_from_db(payload).then(res => {     
+            memberApi.delete_user_from_db(payload).then(() => {     
+                console.log(getters.get_schedules.length)
                 let schedule_list = []
                 let empty_rows = []           
-                console.log(getters.get_schedules.length)
-                state.schedules.shift()
-                console.log(getters.get_schedules.length)
-                getters.get_schedules.forEach((element,index) => {
+                let schedules = []
+                getters.get_schedules.forEach(element => {
+                    if (element.id != payload.id ) {
+                        schedules.push(element)
+                    }                    
+                });
+                schedules.forEach((element,index) => {
                     let new_index = index+1
                     let orders = {
                         "id": element.id,

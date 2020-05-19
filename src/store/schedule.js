@@ -101,7 +101,6 @@ export const schedule = {
                 ordered.forEach((element, index) => {
                     element.order_id = index
                 });
-                console.log(ordered.length)
                 this.commit("set_schedules", ordered)
                 this.commit("set_schedule_load", 2)
             })

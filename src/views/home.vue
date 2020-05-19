@@ -2,8 +2,8 @@
     <div id="home">
         <app-header />
         <div class="table-wrap flex between" v-if="get_schedule_load == 2 && get_setting_load == 2">
-            <app-table-one :schedules="schedules" />
-            <app-table-two :schedules="schedules" />
+            <app-table-one :schedules="schedules" :class="{single_table: schedules.table_two == null}" />
+            <app-table-two v-if="schedules.table_two != null" :schedules="schedules" />
         </div>
         <app-memo />
         <app-popup-memo v-if="get_add_memo == true"/>
@@ -52,6 +52,7 @@ export default {
 			} else {
 				let obj = {
 					"table_one": "",
+					"table_two": null,
 				}
 				obj.table_one = this.get_schedules
 				return obj			
@@ -70,6 +71,9 @@ export default {
 #home .table-wrap table.schedule-table {
     width: 48%;
     font-size: 14px;
+}
+#home .table-wrap table.single_table {
+    width: 100%;
 }
 
 /* table header */
