@@ -18,8 +18,8 @@
                 {{schedule.schedules[0].holiday_work_finish != null ? schedule.schedules[0].holiday_work_finish.substring(5).replace("-", "/") : ""}} 
             </p>
         </td>
-        <td :style="{borderRight:'2px solid #'+get_settings[0].color_line, borderBottom:'2px solid #'+get_settings[0].color_line}" class="st-item" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
-            <p v-if="schedule.schedules.length && schedule.schedules[0].display_returns == 1 && schedule.schedules[0].direct_returns == 0">
+        <td :style="{borderRight:'2px solid #'+get_settings[0].color_line, borderBottom:'2px solid #'+get_settings[0].color_line}" class="st-item">
+            <p v-if="schedule.schedules.length && schedule.schedules[0].display_returns == 1 && schedule.schedules[0].direct_returns == 0" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
                 {{ schedule.schedules[0].return_date != null ? schedule.schedules[0].return_date.substring(5).replace("-", "/") : ""}}
                 <span v-if="schedule.schedules[0].return_date != null && schedule.schedules[0].return_time.length">-</span>
                 {{schedule.schedules[0].return_time.length ? schedule.schedules[0].return_time.match(/../g).join(':') : ""}}
