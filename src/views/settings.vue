@@ -119,9 +119,6 @@ export default {
 }
 </script>
 <style>
-#settings {
-
-}
 #settings h3.setting-table-title {
     margin-top: 50px;
     text-align: center;
