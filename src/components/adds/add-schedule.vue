@@ -156,9 +156,7 @@ export default {
             let obj = {}
             this.get_schedules.forEach(item => {
                 if (item.id == this.get_schedule_user_id && item.name != "") {  
-                    console.log(item)
                     if (item.schedules.length) {
-
                         this.content = item.schedules[0].content
                         this.holiday_work_start = item.schedules[0].holiday_work_start
                         this.holiday_work_finish = item.schedules[0].holiday_work_finish
