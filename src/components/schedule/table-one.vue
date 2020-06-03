@@ -1,12 +1,12 @@
 <template>
-    <table class="schedule-table table-one" v-if="get_setting_load == 2" :style="{border:'2px solid #'+get_settings[0].color_line}">
+    <table class="schedule-table table-one" v-if="get_setting_load == 2" :style="{border:'2px solid #'+get_settings[0].line_color}">
         <thead>
             <tr>
-                <th :style="{borderRight:'2px solid #'+get_settings[0].color_line, borderBottom:'2px solid #'+get_settings[0].color_line}" class="st-item">名前</th>
-                <th :style="{borderRight:'2px solid #'+get_settings[0].color_line, borderBottom:'2px solid #'+get_settings[0].color_line}" class="st-item">行先</th>
-                <th :style="{borderRight:'2px solid #'+get_settings[0].color_line, borderBottom:'2px solid #'+get_settings[0].color_line}" class="st-item">休日予定</th>
-                <th :style="{borderRight:'2px solid #'+get_settings[0].color_line, borderBottom:'2px solid #'+get_settings[0].color_line}" class="st-item">帰社日時</th>
-                <th :style="{borderRight:'2px solid #'+get_settings[0].color_line, borderBottom:'2px solid #'+get_settings[0].color_line}" class="st-item">備考</th>
+                <th :style="{borderRight:'2px solid #'+get_settings[0].line_color, borderBottom:'2px solid #'+get_settings[0].line_color}" class="st-item">名前</th>
+                <th :style="{borderRight:'2px solid #'+get_settings[0].line_color, borderBottom:'2px solid #'+get_settings[0].line_color}" class="st-item">行先</th>
+                <th :style="{borderRight:'2px solid #'+get_settings[0].line_color, borderBottom:'2px solid #'+get_settings[0].line_color}" class="st-item">休日予定</th>
+                <th :style="{borderRight:'2px solid #'+get_settings[0].line_color, borderBottom:'2px solid #'+get_settings[0].line_color}" class="st-item">帰社日時</th>
+                <th :style="{borderRight:'2px solid #'+get_settings[0].line_color, borderBottom:'2px solid #'+get_settings[0].line_color}" class="st-item">備考</th>
             </tr>
         </thead>
         <tbody>

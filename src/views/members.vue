@@ -32,9 +32,9 @@ export default {
         add_blank(){
             if (this.get_schedules.length) {
                 let len = this.get_schedules.length   
-                this.$store.dispatch("add_blank_row", {"date":this.get_selected_date, "order_id": len+1})              
+                this.$store.dispatch("insert_user", {"member": null, "order_id": len+1})              
             } else {
-                this.$store.dispatch("add_blank_row", {"date":this.get_selected_date, "order_id": 1}) 
+                this.$store.dispatch("insert_user", {"member": null, "order_id": 1})              
             }            
         }
     },

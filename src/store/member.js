@@ -1,5 +1,4 @@
-import memberApi from "../api/members.api";
-import { schedule } from "./schedule";
+import memberApi from "../api/member.api";
 export const member = {
     state: {
         add_member: false,
@@ -35,31 +34,18 @@ export const member = {
         }, 
         insert_new_order_id({commit, dispatch, getters}, payload){
             memberApi.add_order_id(payload)
-            .then(res => {
-                res.data.forEach(order => {
-                    order.order_id = parseInt(order.order_id)
-                })
-                let ordered = res.data.sort(function(a, b) {
-                    return a.order_id - b.order_id;
-                });
-                this.commit("set_users", ordered)
+            .then(() => {
+                dispatch("load_schedule", {"date":getters.get_selected_date})
             })		
         },
-        edit_user_name({commit,getters, dispatch}, payload){
-            memberApi.edit_user_name_in_db(payload)
-            .then(res => {
-                res.data.forEach(order => {
-                    order.order_id = parseInt(order.order_id)
-                })
-                let ordered = res.data.sort(function(a, b) {
-                    return a.order_id - b.order_id;
-                });
-                this.commit("set_users", ordered)
+        edit_member_name({commit,getters, dispatch}, payload){
+            memberApi.edit_member_name_in_db(payload)
+            .then(() => {
+                dispatch("load_schedule", {"date":getters.get_selected_date})
             })		
         },
-        delete_user({commit,dispatch, getters, state}, payload){
-            memberApi.delete_user_from_db(payload).then(() => {     
-                console.log(getters.get_schedules.length)
+        delete_member({commit,dispatch, getters, state}, payload){
+            memberApi.delete_member_from_db(payload).then(() => {     
                 let schedule_list = []
                 let empty_rows = []           
                 let schedules = []
@@ -81,31 +67,6 @@ export const member = {
                     }
                 });
                 dispatch("insert_new_order_id", {"orders":schedule_list})
-                dispatch("blank_row_order_id", {"orders":empty_rows})                
-                // dispatch("load_schedule", {"date":getters.get_selected_date})          
-            })
-        },
-    
-    
-        /* 
-        * blank rows
-        */ 
-        add_blank_row({commit, dispatch, getters}, payload) {
-            memberApi.add_new_empty_cell(payload)
-            .then( () => {
-                dispatch("load_schedule", {"date":getters.get_selected_date})             
-            }) 
-        },
-        blank_row_order_id({commit, dispatch, getters}, payload){
-            memberApi.edit_empty_row_order_id(payload)
-            .then(res => {
-                dispatch("load_schedule", {"date":getters.get_selected_date})         
-            })
-        },
-        del_blank_row({commit, dispatch, getters}, payload) {
-            memberApi.remove_empty_row(payload)
-            .then(res => {
-                dispatch("load_schedule", {"date":getters.get_selected_date})          
             })
         },
     }

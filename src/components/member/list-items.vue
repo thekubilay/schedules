@@ -2,22 +2,22 @@
     <tr class="grab">
         <td class="member-item">{{index+1}}</td>
         <td class="member-item name-item">
-            <p v-if="user.name != ''" class="flex align-ver align-hor name-btn">{{user.name}}</p>
-            <p v-else class="flex align-ver align-hor">{{user.name}}</p>
-            <input v-if="get_settings.length" v-model="name" :maxlength="get_settings[0].name_field" v-show="edit" type="text" ref="input">
+            <p v-if="member.member != null" class="flex align-ver align-hor name-btn">{{member.member}}</p>
+            <p v-else class="flex align-ver align-hor">{{member.member}}</p>
+            <input v-if="get_settings.length" v-model="name" :maxlength="get_settings[0].name_char_limit" v-show="edit" type="text" ref="input">
             <p v-if="error == true" class="input-err">お名前を入力してください。</p>            
         </td>
         <td class="member-item">
             <button
-                 v-if="!edit && user.name != ''"
-                @click="edit_user()"
+                 v-if="!edit && member.member != null"
+                @click="edit_member()"
                 class="edit-btn"
             >
                 <i class="fas fa-pencil-alt"></i>
             </button>
             <button
-                v-if="edit && user.name != ''"
-                @click="apply_user()"
+                v-if="edit && member.member != null"
+                @click="apply_member()"
                 class="apply-btn"
             >
                 <i class="fas fa-paper-plane"></i>
@@ -25,7 +25,7 @@
         </td>
         <td class="member-item">
             <button
-                @click="delete_user()"
+                @click="delete_member()"
                 class="delete-btn"
             >
                 <i class="far fa-trash-alt"></i>
@@ -37,7 +37,7 @@
 import { mapGetters } from 'vuex'
 export default {
     props: {
-        user: Object,
+        member: Object,
         index: Number,
     },    
     data(){
@@ -48,12 +48,12 @@ export default {
         }
     },
     methods: {
-        edit_user(){
+        edit_member(){
             this.edit = true;
         },
-        apply_user(){
+        apply_member(){
             if (this.name != "") {
-                this.$store.dispatch("edit_user_name", {"user":this.name, "id":this.user.id})
+                this.$store.dispatch("edit_member_name", {"member":this.name, "id":this.member.id})
                 this.edit = false;             
             } else {
                 this.error = true
@@ -62,14 +62,10 @@ export default {
                 }, 1500);
             }
         },
-        delete_user(){
-            if (this.user.name != '') {
-                this.$store.dispatch("delete_user", {
-                    "id":this.user.id,
-                })
-            } else {
-                this.$store.dispatch("del_blank_row", {id:this.user.id})
-            }
+        delete_member(){
+            this.$store.dispatch("delete_member", {
+                "id":this.member.id,
+            })
         },
     },
     computed: {

@@ -37,7 +37,7 @@ export default {
             "get_add_schedule",
         ]),
         schedules(){
-			let row_number = parseInt(this.get_settings[0].row_number)				
+			let row_number = parseInt(this.get_settings[0].row_limit)				
 
 			if (this.get_schedules.length > row_number) {
 				let obj = {

@@ -32,10 +32,9 @@ export default {
                 if (this.get_schedules.length) {
                     this.$store.state.member.add_member = false;
                     let len = this.get_schedules.length   
-                    console.log(len)
-                    this.$store.dispatch("insert_user", {"user":this.member, "order_id": len+1})              
+                    this.$store.dispatch("insert_user", {"member":this.member, "order_id": len+1})              
                 } else {
-                    this.$store.dispatch("insert_user", {"user":this.member, "order_id": 1}) 
+                    this.$store.dispatch("insert_user", {"member":this.member, "order_id": 1}) 
                 }     
             } else {
                 this.error = true

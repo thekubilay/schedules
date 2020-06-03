@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <draggable v-model="drag_user" tag="tbody">
-            <app-member-items v-for="(user,index) in get_schedules" :key="index" :user="user" :index="index" />
+            <app-member-items v-for="(member, index) in get_schedules" :key="index" :member="member" :index="index" />
         </draggable>
     </table>
 </template>
@@ -31,22 +31,15 @@ export default {
             set(val){
                 this.$store.commit("set_schedules", val)
                 let schedule_list = []
-                let empty_rows = []
-                this.get_schedules.forEach((element,index) => {
+                this.get_schedules.forEach((element, index) => {
                     let new_index = index+1
                     let orders = {
                         "id": element.id,
                         "order_id": new_index
                     }
-                    if (element.name != '') {
-                        schedule_list.push(orders) 
-                    } else {
-                        empty_rows.push(orders)
-                    }
+                    schedule_list.push(orders)
                 });
                 this.$store.dispatch("insert_new_order_id", {"orders":schedule_list})
-                this.$store.dispatch("blank_row_order_id", {"orders":empty_rows})
-                this.$store.dispatch("load_schedule", {"date":this.get_selected_date})          
             },
             get(){
                 return this.$store.state.schedule.schedules

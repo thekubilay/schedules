@@ -1,34 +1,34 @@
 <template>
     <tr>
-        <td :style="{borderRight:'2px solid #'+get_settings[0].color_line, borderBottom:'2px solid #'+get_settings[0].color_line}" class="st-item">
+        <td :style="{borderRight:'2px solid #'+get_settings[0].line_color, borderBottom:'2px solid #'+get_settings[0].line_color}" class="st-item">
             <button class="btn"
-                v-if="schedule.name != ''"
+                v-if="schedule.member != null"
                 @click="add_schedule()"
                 >
-                {{schedule.name}}                
+                {{schedule.member}}                
             </button>
         </td>
-        <td :style="{borderRight:'2px solid #'+get_settings[0].color_line, borderBottom:'2px solid #'+get_settings[0].color_line}" class="st-item" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
+        <td :style="{borderRight:'2px solid #'+get_settings[0].line_color, borderBottom:'2px solid #'+get_settings[0].line_color}" class="st-item" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
             <p v-if="schedule.schedules.length">{{schedule.schedules[0].content}}</p>
         </td>
-        <td :style="{borderRight:'2px solid #'+get_settings[0].color_line, borderBottom:'2px solid #'+get_settings[0].color_line}" class="st-item" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
+        <td :style="{borderRight:'2px solid #'+get_settings[0].line_color, borderBottom:'2px solid #'+get_settings[0].line_color}" class="st-item" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
             <p v-if="schedule.schedules.length"> 
                 {{ schedule.schedules[0].holiday_work_start != null ? schedule.schedules[0].holiday_work_start.substring(5).replace("-", "/") : ""}} 
                 <span v-if="schedule.schedules[0].holiday_work_start != null && schedule.schedules[0].holiday_work_finish != null && schedule.schedules[0].holiday_work_start != '' && schedule.schedules[0].holiday_work_finish != ''">-</span>
                 {{schedule.schedules[0].holiday_work_finish != null ? schedule.schedules[0].holiday_work_finish.substring(5).replace("-", "/") : ""}} 
             </p>
         </td>
-        <td :style="{borderRight:'2px solid #'+get_settings[0].color_line, borderBottom:'2px solid #'+get_settings[0].color_line}" class="st-item">
-            <p v-if="schedule.schedules.length && schedule.schedules[0].display_returns == 1 && schedule.schedules[0].direct_returns == 0" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
+        <td :style="{borderRight:'2px solid #'+get_settings[0].line_color, borderBottom:'2px solid #'+get_settings[0].line_color}" class="st-item">
+            <p v-if="schedule.schedules.length && schedule.schedules[0].display_return == 1 && schedule.schedules[0].direct_return == 0" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
                 {{ schedule.schedules[0].return_date != null ? schedule.schedules[0].return_date.substring(5).replace("-", "/") : ""}}
                 <span v-if="schedule.schedules[0].return_date != null && schedule.schedules[0].return_time.length">-</span>
                 {{schedule.schedules[0].return_time.length ? schedule.schedules[0].return_time.match(/../g).join(':') : ""}}
             </p>
-            <p v-if="schedule.schedules.length && schedule.schedules[0].direct_returns == 1">NR</p>
+            <p v-if="schedule.schedules.length && schedule.schedules[0].direct_return == 1">NR</p>
         </td>
 
-        <td :style="{borderRight:'2px solid #'+get_settings[0].color_line, borderBottom:'2px solid #'+get_settings[0].color_line}" class="st-item" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
-            <p v-if="schedule.schedules.length">{{schedule.schedules[0].remarks}}</p>
+        <td :style="{borderRight:'2px solid #'+get_settings[0].line_color, borderBottom:'2px solid #'+get_settings[0].line_color}" class="st-item" :class="{red_txt: holiday_finish == true || return_date == true || return_time == true}">
+            <p v-if="schedule.schedules.length">{{schedule.schedules[0].remark}}</p>
         </td>
     </tr>
 </template>

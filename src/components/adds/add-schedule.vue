@@ -7,11 +7,11 @@
 
             <div class="flex align-ver box-row">
                 <p class="flex align-ver align-hor column-title">担当者名</p>
-                <p class="name-txt">{{user_schedule.name}}</p>
+                <p class="name-txt">{{user_schedule.member}}</p>
             </div>
             <div class="flex align-ver box-row">
                 <p class="flex align-ver align-hor column-title">行先記入</p>
-                <input class="column-input" :maxlength="get_settings[0].content_field" v-model="content" type="text">
+                <input class="column-input" :maxlength="get_settings[0].content_char_limit" v-model="content" type="text">
             </div>
             <div class="flex align-ver align-hor  box-row">
                 <p class="flex align-ver align-hor column-title">帰社予定</p>
@@ -37,9 +37,9 @@
             <div class="flex align-ver box-row">
                 <p class="flex align-ver align-hor column-title empty"></p>
                 <div class="flex align-ver input-wrap">
-                    <input type="checkbox" class="checks" v-model="display_returns">
+                    <input type="checkbox" class="checks" v-model="display_return">
                     <p class="check-txt">帰社日時を表示する</p>
-                    <input type="checkbox" class="checks" v-model="direct_returns">
+                    <input type="checkbox" class="checks" v-model="direct_return">
                     <p class="check-txt">直帰</p>
                 </div>
             </div>
@@ -66,7 +66,7 @@
             </div>
             <div class="flex align-ver box-row">
                 <p class="flex align-ver align-hor column-title">備考記入</p>
-                <input class="column-input" :maxlength="get_settings[0].remarks_field" v-model="remarks" type="text">
+                <input class="column-input" :maxlength="get_settings[0].remark_char_limit" v-model="remark" type="text">
             </div>
 
             <div class="flex between btn-wrap">
@@ -97,9 +97,9 @@ export default {
             mins: ["00", "15", "30", "45"],
             selected_hour: "",
             selected_min: "",
-            display_returns: true,
-            direct_returns: false,
-            remarks: "",
+            display_return: true,
+            direct_return: false,
+            remark: "",
         }
     },
     methods: {
@@ -110,15 +110,15 @@ export default {
             if (btn_type == 1) {
                 this.$store.state.schedule.add_schedule = false
                 let payload = {
-                    "user_id": this.get_schedule_user_id,
+                    "member_id": this.get_schedule_user_id,
                     "content": this.content,
                     "holiday_work_start": this.holiday_work_start == "" ? null : this.holiday_work_start,
                     "holiday_work_finish": this.holiday_work_finish == "" ? null : this.holiday_work_finish,
                     "return_date": this.return_date == "" ? null : this.return_date,
                     "return_time": this.selected_hour+""+this.selected_min,
-                    "display_returns": this.display_returns == true ? 1 : 0,
-                    "direct_returns": this.direct_returns == true ? 1 : 0,
-                    "remarks": this.remarks,
+                    "display_return": this.display_return == true ? 1 : 0,
+                    "direct_return": this.direct_return == true ? 1 : 0,
+                    "remark": this.remark,
                     "created_at": this.get_selected_date,                    
                 }
 
@@ -127,15 +127,15 @@ export default {
             } else if (btn_type == 2) {
                 this.$store.state.schedule.add_schedule = false
                 let payload = {
-                    "user_id": this.get_schedule_user_id,
+                    "member_id": this.get_schedule_user_id,
                     "content": "",
                     "holiday_work_start": null,
                     "holiday_work_finish": null,
                     "return_date": null,
                     "return_time": "",
-                    "display_returns": 1,
-                    "direct_returns": 0,
-                    "remarks": "",
+                    "display_return": 1,
+                    "direct_return": 0,
+                    "remark": "",
                     "created_at": this.get_selected_date,                    
                 }
 
@@ -163,9 +163,9 @@ export default {
                         this.return_date = item.schedules[0].return_date
                         this.selected_hour = item.schedules[0].return_time != null && item.schedules[0].return_time != null ? item.schedules[0].return_time.substring(0,2) : ""
                         this.selected_min = item.schedules[0].return_time != null && item.schedules[0].return_time != null ? item.schedules[0].return_time.substring(2,4) : ""
-                        this.display_returns = item.schedules[0].display_returns == 1 ? true : false
-                        this.direct_returns = item.schedules[0].direct_returns == 1 ? true : false,
-                        this.remarks = item.schedules[0].remarks
+                        this.display_return = item.schedules[0].display_return == 1 ? true : false
+                        this.direct_return = item.schedules[0].direct_return == 1 ? true : false,
+                        this.remark = item.schedules[0].remark
                     }   
                     obj = item
                 }
@@ -209,8 +209,9 @@ export default {
     margin-bottom: 0;
 }
 .popup-bg .schedule-frame .box-row input.checks {
-    width: 30px;
+    width: 18px;
     margin-bottom: 0;
+    margin-right: 10px;
 }
 .popup-bg .schedule-frame .box-row p.check-txt {
     margin-right: 10px;

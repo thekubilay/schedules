@@ -22,37 +22,37 @@
                 <tr>
                     <td class="sett-item">5</td>
                     <td class="sett-item">線色 :</td>
-                    <td class="sett-item"><input v-model="color_line" class="setting-input" type="text"></td>
+                    <td class="sett-item"><input v-model="line_color" class="setting-input" type="text"></td>
                     <td class="sett-item">16進数カラーコード</td>
                 </tr>
                  <tr>
                     <td class="sett-item">2</td>
                     <td class="sett-item">"行先" 文字制限 :</td>
-                    <td class="sett-item"><input v-model="content_field" class="setting-input" type="text"></td>
+                    <td class="sett-item"><input v-model="content_char_limit" class="setting-input" type="text"></td>
                     <td class="sett-item">10～40（文字）で設定</td>
                 </tr>
                 <tr>
                     <td class="sett-item">3</td>
                     <td class="sett-item">"備考" 文字制限 :</td>
-                    <td class="sett-item"><input v-model="remarks_field" class="setting-input" type="text"></td>
+                    <td class="sett-item"><input v-model="remark_char_limit" class="setting-input" type="text"></td>
                     <td class="sett-item">10～40（文字）で設定</td>
                 </tr>
                 <tr>
                     <td class="sett-item">4</td>
                     <td class="sett-item">"備考" "名前" 文字制限 :</td>
-                    <td class="sett-item"><input v-model="name_field" class="setting-input" type="text"></td>
+                    <td class="sett-item"><input v-model="name_char_limit" class="setting-input" type="text"></td>
                     <td class="sett-item">2～10（文字）で設定</td>
                 </tr>
                 <tr>
                     <td class="sett-item">6</td>
                     <td class="sett-item">行動予定表メモ連絡 :</td>
-                    <td class="sett-item"><input v-model="memo_field" type="checkbox" class="setting-input"></td>
+                    <td class="sett-item"><input v-model="memo_visible" type="checkbox" class="setting-input"></td>
                     <td class="sett-item">連絡メモ欄の表示</td>
                 </tr>
                 <tr>
                     <td class="sett-item">7</td>
                     <td class="sett-item">行動予定表表枠 :</td>
-                    <td class="sett-item"><input v-model="row_number" class="setting-input" type="text"></td>
+                    <td class="sett-item"><input v-model="row_limit" class="setting-input" type="text"></td>
                     <td class="sett-item">1テーブルで適切行数5〜20</td>
                 </tr>
             </tbody>
@@ -69,12 +69,12 @@ export default {
     data(){
         return {
             update_time: "",
-            content_field: "",
-            remarks_field: "",
-            name_field: "",
-            color_line: "",
-            memo_field: "",
-            row_number: "",
+            content_char_limit: "",
+            remark_char_limit: "",
+            name_char_limit: "",
+            line_color: "",
+            memo_visible: "",
+            row_limit: "",
         }
     },
     methods: {
@@ -82,12 +82,12 @@ export default {
             let payload = {
                 "id": this.get_settings[0].id,
                 "update_time": this.update_time,
-                "row_number": this.row_number,
-                "content_field": this.content_field,
-                "remarks_field": this.remarks_field,
-                "name_field": this.name_field,
-                "color_line": this.color_line,
-                "memo_field": this.memo_field == true ? 1 : 0,   
+                "row_limit": this.row_limit,
+                "content_char_limit": this.content_char_limit,
+                "remark_char_limit": this.remark_char_limit,
+                "name_char_limit": this.name_char_limit,
+                "line_color": this.line_color,
+                "memo_visible": this.memo_visible == true ? 1 : 0,   
             }
             this.$store.dispatch("update_settings", payload)
             this.$router.push({name: "home"})
@@ -104,12 +104,12 @@ export default {
         settings(){
             if (this.get_settings.length) {
                 this.update_time = this.get_settings[0].update_time
-                this.content_field = this.get_settings[0].content_field
-                this.remarks_field = this.get_settings[0].remarks_field
-                this.name_field = this.get_settings[0].name_field
-                this.color_line = this.get_settings[0].color_line
-                this.memo_field = this.get_settings[0].memo_field == 1 ? true : false
-                this.row_number = this.get_settings[0].row_number
+                this.content_char_limit = this.get_settings[0].content_char_limit
+                this.remark_char_limit = this.get_settings[0].remark_char_limit
+                this.name_char_limit = this.get_settings[0].name_char_limit
+                this.line_color = this.get_settings[0].line_color
+                this.memo_visible = this.get_settings[0].memo_visible == 1 ? true : false
+                this.row_limit = this.get_settings[0].row_limit
             }
 
             let title = "設定ファイルの編集/更新"
